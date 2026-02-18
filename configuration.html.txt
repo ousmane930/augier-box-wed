@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>AUGIER-BOX - Configuration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 10px;
+        }
+        .menu {
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: inline-block;
+        }
+        .menu a:hover {
+            background: #0066cc;
+            border-radius: 3px;
+        }
+        .section {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #0066cc;
+        }
+        .section h2 {
+            margin-top: 0;
+            color: #0066cc;
+        }
+        label {
+            display: inline-block;
+            width: 200px;
+            margin: 10px 0;
+        }
+        input[type="text"], input[type="password"] {
+            padding: 8px;
+            width: 250px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .btn {
+            background: #0066cc;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        .btn:hover {
+            background: #0052a3;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚙️ Configuration - AUGIER-BOX</h1>
+        
+        <div class="menu">
+            <a href="accueil.html">🏠 Accueil</a>
+            <a href="configuration.html">⚙️ Configuration</a>
+            <a href="alarmes.html">⚠️ Alarmes</a>
+            <a href="supervision.html">📈 Supervision</a>
+            <a href="maintenance.html">🔧 Maintenance</a>
+        </div>
+
+        <div class="section">
+            <h2>📡 Paramètres GSM</h2>
+            
+            <label>Code PIN :</label>
+            <input type="password" value="1234"><br>
+            
+            <label>Numéro Augier-Box :</label>
+            <input type="text" value="06 12 34 56 78"><br>
+            
+            <label>Numéro Superviseur :</label>
+            <input type="text" value="06 98 76 54 32"><br>
+            
+            <label>Numéro Astreinte 1 :</label>
+            <input type="text" value="06 11 22 33 44"><br>
+            
+            <label>Numéro Astreinte 2 :</label>
+            <input type="text" value="06 55 66 77 88"><br>
+            
+            <label>Identifiant :</label>
+            <input type="text" value="BOX-001">
+        </div>
+
+        <div class="section">
+            <h2>🌐 Paramètres GPRS</h2>
+            
+            <label>Activer GPRS :</label>
+            <input type="checkbox" checked> Oui<br><br>
+            
+            <label>Utilisateur GPRS :</label>
+            <input type="text" value="orange"><br>
+            
+            <label>Mot de passe :</label>
+            <input type="password" value="orange123"><br>
+            
+            <label>APN :</label>
+            <input type="text" value="orange.fr">
+        </div>
+
+        <div class="section">
+            <h2>📊 État de la connexion</h2>
+            <p><strong>Qualité signal :</strong> <span style="color: green;">██████░░░░ 60%</span></p>
+            <p><strong>Connecté au réseau :</strong> <span style="color: green;">✓ OUI</span></p>
+            <p><strong>Adresse IP :</strong> 192.168.1.100</p>
+        </div>
+
+        <div style="text-align: center;">
+            <button class="btn">💾 ENREGISTRER</button>
+            <button class="btn" style="background: #666;">❌ ANNULER</button>
+        </div>
+
+        <div class="footer">
+            AUGIER-BOX V2.6 - Configuration GSM/GPRS
+        </div>
+    </div>
+</body>
+</html>

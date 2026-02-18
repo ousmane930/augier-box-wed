@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>AUGIER-BOX - Supervision</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 10px;
+        }
+        .menu {
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: inline-block;
+        }
+        .menu a:hover {
+            background: #0066cc;
+            border-radius: 3px;
+        }
+        .status-card {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #0066cc;
+        }
+        .status-card h2 {
+            margin-top: 0;
+            color: #0066cc;
+        }
+        .progress-bar {
+            background: #ddd;
+            height: 20px;
+            border-radius: 10px;
+            width: 200px;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .progress-fill {
+            height: 20px;
+            border-radius: 10px;
+            width: 80%;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .info-item {
+            margin: 15px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .value {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #0066cc;
+        }
+        .btn {
+            background: #0066cc;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        .btn:hover {
+            background: #0052a3;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📈 Supervision - Temps Réel</h1>
+        
+        <div class="menu">
+            <a href="accueil.html">🏠 Accueil</a>
+            <a href="configuration.html">⚙️ Configuration</a>
+            <a href="horaires.html">⏰ Horaires</a>
+            <a href="alarmes.html">⚠️ Alarmes</a>
+            <a href="supervision.html">📈 Supervision</a>
+            <a href="maintenance.html">🔧 Maintenance</a>
+        </div>
+
+        <div class="status-card">
+            <h2>⚡ Tensions</h2>
+            
+            <div class="info-item">
+                <strong>Phase A :</strong>
+                <span class="value">230 V</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 70%; background: green;"></div>
+                </div>
+                <span style="color: green;">Normal</span>
+            </div>
+            
+            <div class="info-item">
+                <strong>Phase B :</strong>
+                <span class="value">231 V</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 71%; background: green;"></div>
+                </div>
+                <span style="color: green;">Normal</span>
+            </div>
+            
+            <div class="info-item">
+                <strong>Phase C :</strong>
+                <span class="value">229 V</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 69%; background: green;"></div>
+                </div>
+                <span style="color: green;">Normal</span>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="status-card">
+                <h2>📡 Communications</h2>
+                
+                <div class="info-item">
+                    <strong>Modem GSM :</strong>
+                    <span style="color: green;">✓ Connecté</span><br>
+                    Signal: <span style="color: orange;">██████░░░░ 60%</span>
+                </div>
+                
+                <div class="info-item">
+                    <strong>Compacto 1 :</strong>
+                    <span style="color: green;">✓ OK</span>
+                </div>
+                
+                <div class="info-item">
+                    <strong>Compacto 2 :</strong>
+                    <span style="color: green;">✓ OK</span>
+                </div>
+                
+                <div class="info-item">
+                    <strong>Compteur énergie :</strong>
+                    <span style="color: green;">✓ OK</span>
+                </div>
+            </div>
+
+            <div class="status-card">
+                <h2>🔋 État général</h2>
+                
+                <div class="info-item">
+                    <strong>Mode :</strong>
+                    <span style="background: #0066cc; color: white; padding: 3px 10px; border-radius: 3px;">AUTO</span>
+                </div>
+                
+                <div class="info-item">
+                    <strong>Batterie :</strong>
+                    <span class="value">80%</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 80%; background: green;"></div>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <strong>Dernière alarme :</strong>
+                    <span style="color: green;">Aucune</span>
+                </div>
+                
+                <div class="info-item">
+                    <strong>Adresse IP :</strong>
+                    <span>192.168.1.100</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="status-card">
+            <h2>⚠️ État des alarmes</h2>
+            <p style="background: #d4edda; color: #155724; padding: 15px; border-radius: 5px;">
+                ✅ Aucune alarme active
+            </p>
+        </div>
+
+        <div style="text-align: center;">
+            <button class="btn">🔄 RAFRAÎCHIR</button>
+            <button class="btn" style="background: #28a745;">📊 EXPORTER DONNÉES</button>
+        </div>
+
+        <div class="footer">
+            Mise à jour : 18/02/2024 14:35:22
+        </div>
+    </div>
+</body>
+</html>

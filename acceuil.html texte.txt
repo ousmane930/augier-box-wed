@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>AUGIER-BOX - Accueil</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 10px;
+        }
+        .menu {
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: inline-block;
+        }
+        .menu a:hover {
+            background: #0066cc;
+            border-radius: 3px;
+        }
+        .status {
+            background: #e8f4ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .status-item {
+            margin: 10px 0;
+        }
+        .progress-bar {
+            background: #ddd;
+            height: 20px;
+            border-radius: 10px;
+            width: 200px;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .progress-fill {
+            background: #0066cc;
+            height: 20px;
+            border-radius: 10px;
+            width: 80%;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔌 AUGIER-BOX - Système de Communication</h1>
+        
+        <div class="menu">
+            <a href="accueil.html">🏠 Accueil</a>
+            <a href="configuration.html">⚙️ Configuration</a>
+            <a href="alarmes.html">⚠️ Alarmes</a>
+            <a href="supervision.html">📈 Supervision</a>
+            <a href="maintenance.html">🔧 Maintenance</a>
+        </div>
+
+        <div class="status">
+            <h2>📊 État Général du Système</h2>
+            
+            <div class="status-item">
+                <strong>Connexion réseau :</strong> 
+                <span style="color: green;">✓ Connecté</span>
+            </div>
+            
+            <div class="status-item">
+                <strong>Batterie :</strong>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                80%
+            </div>
+            
+            <div class="status-item">
+                <strong>Mode en cours :</strong> 
+                <span style="background: #0066cc; color: white; padding: 3px 10px; border-radius: 3px;">AUTO</span>
+            </div>
+            
+            <div class="status-item">
+                <strong>Dernière mise à jour :</strong> 18/02/2024 14:30
+            </div>
+            
+            <div class="status-item">
+                <strong>Signal GSM :</strong>
+                <span style="color: orange;">███░░░░░░░ 30%</span>
+            </div>
+        </div>
+
+        <div style="background: #f9f9f9; padding: 15px; border-radius: 5px;">
+            <h3>⚡ Tensions en temps réel</h3>
+            <table style="width: 100%;">
+                <tr>
+                    <td>Phase A:</td>
+                    <td><strong>230 V</strong></td>
+                    <td style="color: green;">✓ Normal</td>
+                </tr>
+                <tr>
+                    <td>Phase B:</td>
+                    <td><strong>231 V</strong></td>
+                    <td style="color: green;">✓ Normal</td>
+                </tr>
+                <tr>
+                    <td>Phase C:</td>
+                    <td><strong>229 V</strong></td>
+                    <td style="color: green;">✓ Normal</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="footer">
+            AUGIER-BOX V2.6 - © 2024 - Tous droits réservés
+        </div>
+    </div>
+</body>
+</html>

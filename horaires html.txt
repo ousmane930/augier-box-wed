@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>AUGIER-BOX - Horaires</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 10px;
+        }
+        .menu {
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: inline-block;
+        }
+        .menu a:hover {
+            background: #0066cc;
+            border-radius: 3px;
+        }
+        .section {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #0066cc;
+        }
+        .section h2 {
+            margin-top: 0;
+            color: #0066cc;
+        }
+        .coord-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 10px;
+            align-items: center;
+        }
+        input[type="text"], input[type="number"] {
+            padding: 8px;
+            width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .btn {
+            background: #0066cc;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        .btn:hover {
+            background: #0052a3;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⏰ Horaires et Coordonnées</h1>
+        
+        <div class="menu">
+            <a href="accueil.html">🏠 Accueil</a>
+            <a href="configuration.html">⚙️ Configuration</a>
+            <a href="horaires.html">⏰ Horaires</a>
+            <a href="alarmes.html">⚠️ Alarmes</a>
+            <a href="supervision.html">📈 Supervision</a>
+            <a href="maintenance.html">🔧 Maintenance</a>
+        </div>
+
+        <div class="section">
+            <h2>🌍 Coordonnées géographiques</h2>
+            <div class="coord-grid">
+                <span>Latitude :</span>
+                <input type="text" value="43° 42' N">
+                
+                <span>Longitude :</span>
+                <input type="text" value="7° 15' E">
+                
+                <span>Fuseau horaire :</span>
+                <select>
+                    <option>+1 (Paris)</option>
+                    <option>+0 (Londres)</option>
+                    <option>+2 (Berlin)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💡 Horaires d'éclairage</h2>
+            
+            <div style="margin: 15px 0;">
+                <input type="radio" name="mode" checked> ASTRONOMIQUE
+                <input type="radio" name="mode" style="margin-left: 20px;"> PROGRAMMATEUR
+            </div>
+            
+            <div class="coord-grid">
+                <span>Allumage :</span>
+                <input type="time" value="18:30">
+                <span>+ Décalage</span>
+                <input type="number" value="10" style="width: 60px;"> min
+            </div>
+            
+            <div class="coord-grid" style="margin-top: 10px;">
+                <span>Extinction :</span>
+                <input type="time" value="07:15">
+                <span>+ Décalage</span>
+                <input type="number" value="10" style="width: 60px;"> min
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📅 Dérogations</h2>
+            
+            <div style="margin: 10px 0;">
+                <input type="checkbox"> Allumage forcé
+                <span style="margin-left: 20px;">Date: <input type="date" style="width: 150px;"></span>
+                <span style="margin-left: 10px;">Heure: <input type="time" style="width: 100px;"></span>
+            </div>
+            
+            <div style="margin: 10px 0;">
+                <input type="checkbox"> Extinction forcée
+                <span style="margin-left: 20px;">Date: <input type="date" style="width: 150px;"></span>
+                <span style="margin-left: 10px;">Heure: <input type="time" style="width: 100px;"></span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔄 Options</h2>
+            <input type="checkbox" checked> Passage automatique été/hiver
+        </div>
+
+        <div style="text-align: center;">
+            <button class="btn">💾 ENREGISTRER</button>
+            <button class="btn" style="background: #666;">❌ ANNULER</button>
+        </div>
+
+        <div class="footer">
+            AUGIER-BOX V2.6 - Gestion des horaires
+        </div>
+    </div>
+</body>
+</html>
