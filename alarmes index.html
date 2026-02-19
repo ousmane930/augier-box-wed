@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>AugierBox - Supervision</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1e1e1e;
+            margin: 0;
+            padding: 20px;
+            color: #ffffff;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        h1 {
+            color: #ff9900;
+            font-size: 28px;
+            margin: 0 0 5px 0;
+            border-bottom: 2px solid #ff9900;
+            padding-bottom: 5px;
+        }
+        h2 {
+            font-size: 16px;
+            color: #cccccc;
+            margin: 0 0 20px 0;
+        }
+        .section {
+            background: #3d3d3d;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ff9900;
+        }
+        .section-title {
+            color: #ff9900;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .data-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #555;
+        }
+        .data-label {
+            color: #aaa;
+        }
+        .data-value {
+            color: #fff;
+            font-weight: bold;
+        }
+        .unit {
+            color: #ff9900;
+            margin-left: 5px;
+        }
+        .gsm-status {
+            background: #4d4d4d;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .warning {
+            color: #ff6666;
+            background: #553333;
+            padding: 8px;
+            border-radius: 5px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .button {
+            background: #ff9900;
+            color: #1e1e1e;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background: #ffaa22;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 12px;
+        }
+        .ip-address {
+            font-family: monospace;
+            background: #555;
+            padding: 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AUGIERBOX</h1>
+        <h2>ACCUEIL - <span id="date">01/01/2000</span> - <span id="time">01:46</span></h2>
+
+        <!-- Section Tension -->
+        <div class="section">
+            <div class="section-title">🔌 Tension</div>
+            <div class="data-line">
+                <span class="data-label">Phase A:</span>
+                <span><span class="data-value" id="tensionA">0,0</span><span class="unit">V</span></span>
+            </div>
+            <div class="data-line">
+                <span class="data-label">Phase B:</span>
+                <span><span class="data-value" id="tensionB">0,0</span><span class="unit">V</span></span>
+            </div>
+            <div class="data-line">
+                <span class="data-label">Phase C:</span>
+                <span><span class="data-value" id="tensionC">0,0</span><span class="unit">V</span></span>
+            </div>
+            <div class="data-line">
+                <span class="data-label">Énergie Totale Consommée:</span>
+                <span><span class="data-value" id="energie">0</span><span class="unit">kWh</span></span>
+            </div>
+            <div class="gsm-status">
+                <span class="data-label">État du GSM:</span>
+                <div style="margin-top:5px;">
+                    <span class="data-label">BER = </span>
+                    <span class="data-value" id="gsmBer">99</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Puissance Active -->
+        <div class="section">
+            <div class="section-title">⚡ Puissance Active</div>
+            <div class="data-line">
+                <span class="data-label">Phase A + B + C:</span>
+                <span><span class="data-value" id="puisTot">0</span><span class="unit">W</span></span>
+            </div>
+            <div class="data-line">
+                <span class="data-label">Phase A:</span>
+                <span><span class="data-value" id="puisA">0</span><span class="unit">W</span></span>
+            </div>
+            <div class="data-line">
+                <span class="data-label">Phase B:</span>
+                <span><span class="data-value" id="puisB">0</span><span class="unit">W</span></span>
+            </div>
+            <div class="data-line">
+                <span class="data-label">Phase C:</span>
+                <span><span class="data-value" id="puisC">0</span><span class="unit">W</span></span>
+            </div>
+        </div>
+
+        <!-- Section Identifiant Augier Box -->
+        <div class="section">
+            <div class="section-title">🆔 Identifiant Augier Box</div>
+            <div class="data-line">
+                <span class="data-label">Horloge:</span>
+                <span class="data-value" id="horloge">01:46</span>
+            </div>
+            <div class="data-line">
+                <span class="data-label"></span>
+                <span class="data-value" id="jourSemaine">Samedi</span>
+            </div>
+            <div class="data-line">
+                <span class="data-label"></span>
+                <span class="data-value" id="dateComplete">1 Janvier 2000</span>
+            </div>
+            <button class="button" java-script="reglerHorloge()">🕒 Régler Horloge</button>
+        </div>
+
+        <!-- Section Version -->
+        <div class="section">
+            <div class="section-title">📦 Version</div>
+            <div class="data-line">
+                <span class="data-value" id="version">IRRI-BOX</span>
+            </div>
+        </div>
+
+        <!-- Section Détail carte SIM -->
+        <div class="section">
+            <div class="section-title">📱 Détail de carte SIM</div>
+            <div class="warning" id="simWarning">
+                ⚠️ Non connecté/Recherche réseau
+            </div>
+            <div class="data-line">
+                <span class="ip-address" id="simIp">0.0.0.0</span>
+            </div>
+        </div>
+
+        <!-- Section Horaires -->
+        <div class="section">
+            <div class="section-title">🌅 Horaires</div>
+            <div class="data-line">
+                <span class="data-label">Couché du soleil:</span>
+                <span class="data-value" id="coucher">18:00</span>
+            </div>
+            <div class="data-line">
+                <span class="data-label">Levé du soleil:</span>
+                <span class="data-value" id="lever">08:00</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            Données en direct depuis l'Augier-Box ID: 32361001<br>
+            <span style="font-size:10px;">Mise à jour toutes les 2 secondes</span>
+        </div>
+    </div>
+
+    <script>
+        // Fonction pour mettre à jour les données
+        function updateData() {
+            // Ici on simule des variations pour que ça bouge
+            // Dans la vraie vie, on irait chercher les données sur http://172.19.120.10
+            
+            const maintenant = new Date();
+            
+            // Mise à jour de l'heure
+            const heures = maintenant.getHours().toString().padStart(2, '0');
+            const minutes = maintenant.getMinutes().toString().padStart(2, '0');
+            document.getElementById('time').textContent = `${heures}:${minutes}`;
+            document.getElementById('horloge').textContent = `${heures}:${minutes}`;
+            
+            // Mise à jour de la date
+            const jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+            const mois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+            
+            document.getElementById('jourSemaine').textContent = jours[maintenant.getDay()];
+            document.getElementById('dateComplete').textContent = `${maintenant.getDate()} ${mois[maintenant.getMonth()]} ${maintenant.getFullYear()}`;
+            document.getElementById('date').textContent = `${maintenant.getDate().toString().padStart(2,'0')}/${(maintenant.getMonth()+1).toString().padStart(2,'0')}/${maintenant.getFullYear()}`;
+            
+            // Simuler des variations de tension (230V ± 5)
+            const tensionA = (230 + Math.random() * 10 - 5).toFixed(1).replace('.', ',');
+            const tensionB = (231 + Math.random() * 10 - 5).toFixed(1).replace('.', ',');
+            const tensionC = (229 + Math.random() * 10 - 5).toFixed(1).replace('.', ',');
+            
+            document.getElementById('tensionA').textContent = tensionA;
+            document.getElementById('tensionB').textContent = tensionB;
+            document.getElementById('tensionC').textContent = tensionC;
+            
+            // Simuler une petite consommation
+            const puisTot = Math.floor(Math.random() * 150);
+            const puisA = Math.floor(puisTot * 0.4);
+            const puisB = Math.floor(puisTot * 0.35);
+            const puisC = puisTot - puisA - puisB;
+            
+            document.getElementById('puisTot').textContent = puisTot;
+            document.getElementById('puisA').textContent = puisA;
+            document.getElementById('puisB').textContent = puisB;
+            document.getElementById('puisC').textContent = puisC;
+            
+            // Simuler énergie
+            const energie = (Math.random() * 100).toFixed(1).replace('.', ',');
+            document.getElementById('energie').textContent = energie;
+            
+            // Simuler GSM
+            const gsmBer = Math.floor(Math.random() * 30) + 70;
+            document.getElementById('gsmBer').textContent = gsmBer;
+            
+            // Simuler IP
+            const ip = `172.19.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
+            document.getElementById('simIp').textContent = ip;
+            
+            // Message d'alerte si mauvais signal
+            if (gsmBer > 95) {
+                document.getElementById('simWarning').innerHTML = '⚠️ Non connecté/Recherche réseau';
+                document.getElementById('simWarning').style.background = '#553333';
+                document.getElementById('simWarning').style.color = '#ff6666';
+            } else {
+                document.getElementById('simWarning').innerHTML = '📶 Connecté';
+                document.getElementById('simWarning').style.background = '#335533';
+                document.getElementById('simWarning').style.color = '#66ff66';
+            }
+        }
+
+        function reglerHorloge() {
+            window.location.href = "http://172.19.120.10/config/time";
+        }
+
+        // Mettre à jour toutes les 2 secondes
+        setInterval(updateData, 2000);
+        
+        // Initialiser
+        updateData();
+    </script>
+</body>
+</html>
+
