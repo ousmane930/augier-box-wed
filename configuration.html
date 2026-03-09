@@ -2,149 +2,647 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>AUGIER-BOX - Configuration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>AUGIERBOX - SUPERVISION RÉELLE</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
             padding: 20px;
         }
+        
         .container {
-            max-width: 800px;
-            margin: auto;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* En-tête */
+        .header {
             background: white;
+            border-radius: 15px;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
         }
-        h1 {
-            color: #333;
-            border-bottom: 3px solid #0066cc;
-            padding-bottom: 10px;
+        
+        .logo h1 {
+            color: #1e3c72;
+            font-size: 28px;
+            margin-bottom: 5px;
         }
-        .menu {
-            background: #333;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 20px 0;
+        
+        .logo p {
+            color: #666;
+            font-size: 14px;
         }
-        .menu a {
+        
+        .id-badge {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
-            text-decoration: none;
-            padding: 10px 15px;
-            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 20px;
+            box-shadow: 0 5px 15px rgba(30, 60, 114, 0.4);
         }
-        .menu a:hover {
-            background: #0066cc;
-            border-radius: 3px;
-        }
-        .section {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 20px 0;
-            border-left: 4px solid #0066cc;
-        }
-        .section h2 {
-            margin-top: 0;
-            color: #0066cc;
-        }
-        label {
-            display: inline-block;
-            width: 200px;
-            margin: 10px 0;
-        }
-        input[type="text"], input[type="password"] {
-            padding: 8px;
-            width: 250px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .btn {
-            background: #0066cc;
-            color: white;
+        
+        .date-time {
+            background: #f5f5f5;
             padding: 10px 20px;
+            border-radius: 10px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        /* Grille principale */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        /* Cartes */
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .card-header h2 {
+            color: #1e3c72;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .card-header .icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+        
+        /* Grilles de valeurs */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+        }
+        
+        .value-item {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+        
+        .value-item:hover {
+            background: #e9ecef;
+        }
+        
+        .value-label {
+            color: #666;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .value-number {
+            color: #1e3c72;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .value-unit {
+            color: #999;
+            font-size: 12px;
+        }
+        
+        /* Tableaux */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .data-table th {
+            text-align: left;
+            padding: 12px;
+            background: #f8f9fa;
+            color: #1e3c72;
+            font-weight: 600;
+        }
+        
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .data-table td:first-child {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .data-table td:last-child {
+            text-align: right;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        
+        /* Badges d'état */
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .status-badge {
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+        }
+        
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .status-info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        /* Boutons */
+        .refresh-btn {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
             border: none;
-            border-radius: 5px;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
             cursor: pointer;
-            margin: 10px 5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
         }
-        .btn:hover {
-            background: #0052a3;
+        
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 60, 114, 0.4);
         }
+        
+        .refresh-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Footer */
         .footer {
             text-align: center;
             margin-top: 30px;
-            color: #666;
+            color: white;
+            font-size: 14px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+        
+        /* Section tensions spéciale */
+        .phase-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        .phase-header {
+            font-weight: bold;
+            color: #1e3c72;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .phase-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>⚙️ Configuration - AUGIER-BOX</h1>
-        
-        <div class="menu">
-            <a href="accueil.html">🏠 Accueil</a>
-            <a href="configuration.html">⚙️ Configuration</a>
-            <a href="alarmes.html">⚠️ Alarmes</a>
-            <a href="supervision.html">📈 Supervision</a>
-            <a href="maintenance.html">🔧 Maintenance</a>
+        <!-- En-tête -->
+        <div class="header">
+            <div class="logo">
+                <h1>AUGIERBOX II</h1>
+                <p><span id="Accueil">ACCUEIL</span> - <span id="date"></span> - <span id="horloge"></span></p>
+            </div>
+            <div class="id-badge">
+                ID: <span id="idaugierbox">32361001</span>
+            </div>
+            <div class="date-time">
+                <span id="jour_semaine"></span>
+            </div>
         </div>
 
-        <div class="section">
-            <h2>📡 Paramètres GSM</h2>
-            
-            <label>Code PIN :</label>
-            <input type="password" value="1234"><br>
-            
-            <label>Numéro Augier-Box :</label>
-            <input type="text" value="06 12 34 56 78"><br>
-            
-            <label>Numéro Superviseur :</label>
-            <input type="text" value="06 98 76 54 32"><br>
-            
-            <label>Numéro Astreinte 1 :</label>
-            <input type="text" value="06 11 22 33 44"><br>
-            
-            <label>Numéro Astreinte 2 :</label>
-            <input type="text" value="06 55 66 77 88"><br>
-            
-            <label>Identifiant :</label>
-            <input type="text" value="BOX-001">
+        <!-- Ligne 1 : Communications et Commandes -->
+        <div class="dashboard-grid">
+            <!-- Carte Communications -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon">📡</div>
+                    <h2>COMMUNICATIONS</h2>
+                </div>
+                <div class="value-grid">
+                    <div class="value-item">
+                        <div class="value-label">GSM Level</div>
+                        <div class="value-number" id="modem_GsmSignalQuality">0</div>
+                        <div class="value-unit">%</div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-label">IP GPRS</div>
+                        <div class="value-number" id="modem_GPRS_IP">0.0.0.0</div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-label">GPS</div>
+                        <div class="value-number" id="gps_lien_gps">0.000,0.000</div>
+                    </div>
+                </div>
+                <div class="status-grid">
+                    <div class="status-badge status-info" id="GSMAlert">GSM</div>
+                    <div class="status-badge status-info" id="DATAAlert">DATA</div>
+                    <div class="status-badge status-info" id="gps_fixed">GPS</div>
+                    <div class="status-badge status-info" id="alarme">Alarmes</div>
+                </div>
+            </div>
+
+            <!-- Carte Commandes K1 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon">💡</div>
+                    <h2><span id="K1Cmd">Commande K1</span></h2>
+                </div>
+                <div style="margin-bottom: 15px">
+                    <div class="status-badge status-info" id="StatusEclairage">Mode AUTO</div>
+                </div>
+                <div class="value-grid">
+                    <div class="value-item">
+                        <div class="value-label">OFF Perm</div>
+                        <input type="radio" name="modeK1" id="mode-a" value="0">
+                    </div>
+                    <div class="value-item">
+                        <div class="value-label">OFF Dero</div>
+                        <input type="radio" name="modeK1" id="mode-b" value="1">
+                    </div>
+                    <div class="value-item">
+                        <div class="value-label">AUTO</div>
+                        <input type="radio" name="modeK1" id="mode-c" value="2" checked>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-label">ON Dero</div>
+                        <input type="radio" name="modeK1" id="mode-d" value="3">
+                    </div>
+                    <div class="value-item">
+                        <div class="value-label">ON Perm</div>
+                        <input type="radio" name="modeK1" id="mode-e" value="4">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carte Horaires -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon">⏰</div>
+                    <h2><span id="Horaires">Horaires</span></h2>
+                </div>
+                <table class="data-table">
+                    <tr>
+                        <td><span id="Allumage">Allumage</span></td>
+                        <td><span id="clkON">00:00</span> <span id="ShiftON">0</span>mn</td>
+                    </tr>
+                    <tr>
+                        <td><span id="Extinction">Extinction</span></td>
+                        <td><span id="clkOFF">00:00</span> <span id="ShiftOFF">0</span>mn</td>
+                    </tr>
+                </table>
+                <div class="status-grid" style="margin-top: 15px">
+                    <div class="status-badge status-info" id="DailyExtinctionAlert">Extinction</div>
+                    <div class="status-badge status-info" id="ProgrammateurAlert">Programmateur</div>
+                </div>
+            </div>
         </div>
 
-        <div class="section">
-            <h2>🌐 Paramètres GPRS</h2>
+        <!-- Ligne 2 : Tensions / Puissances / Energie (Valeurs à 0) -->
+        <div class="card" style="margin-bottom: 20px">
+            <div class="card-header">
+                <div class="icon">⚡</div>
+                <h2><span id="U_P_E">TENSIONS / PUISSANCES / ENERGIE</span></h2>
+            </div>
             
-            <label>Activer GPRS :</label>
-            <input type="checkbox" checked> Oui<br><br>
+            <!-- En-tête des phases -->
+            <div class="phase-grid">
+                <div class="phase-header"></div>
+                <div class="phase-header">Phase A</div>
+                <div class="phase-header">Phase B</div>
+                <div class="phase-header">Phase C</div>
+            </div>
             
-            <label>Utilisateur GPRS :</label>
-            <input type="text" value="orange"><br>
+            <!-- Tensions -->
+            <div class="phase-grid">
+                <div class="phase-header">U (V)</div>
+                <div class="value-item">
+                    <div class="value-number" id="Ua">0.0</div>
+                </div>
+                <div class="value-item">
+                    <div class="value-number" id="Ub">0.0</div>
+                </div>
+                <div class="value-item">
+                    <div class="value-number" id="Uc">0.0</div>
+                </div>
+            </div>
             
-            <label>Mot de passe :</label>
-            <input type="password" value="orange123"><br>
+            <!-- Courants -->
+            <div class="phase-grid">
+                <div class="phase-header">I (A)</div>
+                <div class="value-item">
+                    <div class="value-number" id="Ia">0.0</div>
+                </div>
+                <div class="value-item">
+                    <div class="value-number" id="Ib">0.0</div>
+                </div>
+                <div class="value-item">
+                    <div class="value-number" id="Ic">0.0</div>
+                </div>
+            </div>
             
-            <label>APN :</label>
-            <input type="text" value="orange.fr">
+            <!-- Puissances actives -->
+            <div class="phase-grid">
+                <div class="phase-header">Pa (kW)</div>
+                <div class="value-item">
+                    <div class="value-number" id="Paa">0.000</div>
+                </div>
+                <div class="value-item">
+                    <div class="value-number" id="Pab">0.000</div>
+                </div>
+                <div class="value-item">
+                    <div class="value-number" id="Pac">0.000</div>
+                </div>
+            </div>
+            
+            <!-- Puissances réactives -->
+            <div class="phase-grid">
+                <div class="phase-header">Pr (kVAR)</div>
+                <div class="value-item">
+                    <div class="value-number" id="Pra">0.000</div>
+                </div>
+                <div class="value-item">
+                    <div class="value-number" id="Prb">0.000</div>
+                </div>
+                <div class="value-item">
+                    <div class="value-number" id="Prc">0.000</div>
+                </div>
+            </div>
+            
+            <!-- Cos phi -->
+            <div class="phase-grid">
+                <div class="phase-header">cos φ</div>
+                <div class="value-item">
+                    <div class="value-number" id="cosPa">0.00</div>
+                </div>
+                <div class="value-item">
+                    <div class="value-number" id="cosP">0.00</div>
+                </div>
+                <div class="value-item">
+                    <div class="value-number" id="cosPc">0.00</div>
+                </div>
+            </div>
         </div>
 
-        <div class="section">
-            <h2>📊 État de la connexion</h2>
-            <p><strong>Qualité signal :</strong> <span style="color: green;">██████░░░░ 60%</span></p>
-            <p><strong>Connecté au réseau :</strong> <span style="color: green;">✓ OUI</span></p>
-            <p><strong>Adresse IP :</strong> 192.168.1.100</p>
+        <!-- Ligne 3 : Détails, Téléinfo, Variateurs -->
+        <div class="dashboard-grid">
+            <!-- Carte Détails -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon">📊</div>
+                    <h2><span id="Details">DÉTAILS</span></h2>
+                </div>
+                <table class="data-table">
+                    <tr><td>P apparente (kVA)</td><td><span id="counter_apparent_power">0.0</span></td></tr>
+                    <tr><td>E totale (kWh)</td><td><span id="Etotale">0.0</span></td></tr>
+                    <tr><td>E partielle (kWh)</td><td><span id="Epartielle">0.0</span></td></tr>
+                    <tr><td>Fréquence (Hz)</td><td><span id="Freq">0.00</span></td></tr>
+                    <tr><td>Charge N (Ω)</td><td><span id="set_EstimatedActualLoad">0.0</span></td></tr>
+                    <tr><td>Charge N-1 (Ω)</td><td><span id="set_EstimatedLastNightLoad">0.0</span></td></tr>
+                </table>
+            </div>
+
+            <!-- Carte Téléinfo EDF -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon">📟</div>
+                    <h2><span id="Teleinfo">TÉLÉINFO EDF</span></h2>
+                </div>
+                <table class="data-table">
+                    <tr><td>I inst1 (A)</td><td><span id="tele_info_edf_iinst1">0.0</span></td></tr>
+                    <tr><td>I inst2 (A)</td><td><span id="tele_info_edf_iinst2">0.0</span></td></tr>
+                    <tr><td>I inst3 (A)</td><td><span id="tele_info_edf_iinst3">0.0</span></td></tr>
+                    <tr><td>I max1 (A)</td><td><span id="tele_info_edf_imax1">0.0</span></td></tr>
+                    <tr><td>I max2 (A)</td><td><span id="tele_info_edf_imax2">0.0</span></td></tr>
+                    <tr><td>I max3 (A)</td><td><span id="tele_info_edf_imax3">0.0</span></td></tr>
+                    <tr><td>I souscrite (A)</td><td><span id="tele_info_edf_isousc">0</span></td></tr>
+                    <tr><td>Papp (kVA)</td><td><span id="tele_info_edf_papp">0.0</span></td></tr>
+                    <tr><td>Pmax (kVA)</td><td><span id="tele_info_edf_pmax">0.0</span></td></tr>
+                    <tr><td>Base (kWh)</td><td><span id="tele_info_edf_base">0.0</span></td></tr>
+                    <tr><td>ADC0</td><td><span id="tele_info_edf_adcO">0</span></td></tr>
+                    <tr><td>PTEC</td><td><span id="tele_info_edf_ptec">-</span></td></tr>
+                    <tr><td>Option Tarif</td><td><span id="tele_info_edf_optarif">-</span></td></tr>
+                    <tr><td>Mot d'état</td><td><span id="tele_info_edf_motdetat">-</span></td></tr>
+                    <tr><td>Heures creuses</td><td><span id="tele_info_edf_0">0</span></td></tr>
+                    <tr><td>Heures pleines</td><td><span id="tele_info_edf_1">0</span></td></tr>
+                </table>
+            </div>
+
+            <!-- Carte Variateurs -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon">🎛️</div>
+                    <h2><span id="Variateurs">VARIATEURS</span></h2>
+                </div>
+                <table class="data-table">
+                    <tr><td>Mode</td><td><span id="StatusCompactoMode">STOP</span></td></tr>
+                    <tr><td>U entrée (V)</td><td><span id="volt">0.0</span></td></tr>
+                    <tr><td>U sortie (V)</td><td><span id="output_voltage">0.0</span></td></tr>
+                    <tr><td>I sortie (A)</td><td><span id="curr">0.0</span></td></tr>
+                    <tr><td>cos φ</td><td><span id="cos">0.00</span></td></tr>
+                    <tr><td>Pa (W) avec</td><td><span id="act_power">0</span></td></tr>
+                    <tr><td>Pa (W) sans</td><td><span id="estimated_power">0</span></td></tr>
+                    <tr><td>Ea totale avec</td><td><span id="tot_energy_act">0.0</span></td></tr>
+                    <tr><td>Ea totale sans</td><td><span id="tot_engy_act_wo_cpto">0.0</span></td></tr>
+                    <tr><td>Ea partielle avec</td><td><span id="part_energy_act">0.0</span></td></tr>
+                    <tr><td>Ea partielle sans</td><td><span id="part_engy_act_wo_cpto">0.0</span></td></tr>
+                    <tr><td>Pr (VAR)</td><td><span id="react_power">0</span></td></tr>
+                </table>
+            </div>
         </div>
 
-        <div style="text-align: center;">
-            <button class="btn">💾 ENREGISTRER</button>
-            <button class="btn" style="background: #666;">❌ ANNULER</button>
+        <!-- Ligne 4 : Entrée analogique et Infos système -->
+        <div class="dashboard-grid">
+            <!-- Carte Entrée Analogique -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon">📈</div>
+                    <h2><span id="Entree_mA">ENTRÉE ANALOGIQUE 4-20mA</span></h2>
+                </div>
+                <div class="value-item">
+                    <div class="value-label">4-20 mA</div>
+                    <div class="value-number" id="ab_dummy_4">0.0</div>
+                </div>
+            </div>
+
+            <!-- Carte Informations système -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon">ℹ️</div>
+                    <h2><span id="Mode">INFORMATIONS SYSTÈME</span></h2>
+                </div>
+                <table class="data-table">
+                    <tr><td>Version logiciel</td><td><span id="VLogiciel">2.0.1</span></td></tr>
+                    <tr><td>Version Boot</td><td><span id="VBoot">3.2.0</span></td></tr>
+                    <tr><td>État chargeur</td><td><span id="ab_state_charger_str">-</span></td></tr>
+                    <tr><td>Version AugierBox</td><td><span id="Options2-4">II</span></td></tr>
+                </table>
+            </div>
+
+            <!-- Carte Compacto (ID CPT1 à CPT12) -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon">🔢</div>
+                    <h2>COMPACTO</h2>
+                </div>
+                <div class="value-grid">
+                    <div class="value-item"><span class="value-number" id="CPT1">1</span></div>
+                    <div class="value-item"><span class="value-number" id="CPT2">2</span></div>
+                    <div class="value-item"><span class="value-number" id="CPT3">3</span></div>
+                    <div class="value-item"><span class="value-number" id="CPT4">4</span></div>
+                    <div class="value-item"><span class="value-number" id="CPT5">5</span></div>
+                    <div class="value-item"><span class="value-number" id="CPT6">6</span></div>
+                    <div class="value-item"><span class="value-number" id="CPT7">7</span></div>
+                    <div class="value-item"><span class="value-number" id="CPT8">8</span></div>
+                    <div class="value-item"><span class="value-number" id="CPT9">9</span></div>
+                    <div class="value-item"><span class="value-number" id="CPT10">10</span></div>
+                    <div class="value-item"><span class="value-number" id="CPT11">11</span></div>
+                    <div class="value-item"><span class="value-number" id="CPT12">12</span></div>
+                </div>
+            </div>
         </div>
 
+        <!-- Bouton rafraîchir et infos -->
+        <div style="text-align: center">
+            <button class="refresh-btn" java-script="refreshData()">
+                🔄 RAFRAÎCHIR LES DONNÉES
+            </button>
+        </div>
+
+        <!-- Footer -->
         <div class="footer">
-            AUGIER-BOX V2.6 - Configuration GSM/GPRS
+            <p>AUGIER Energy - Version 2.0.1</p>
+            <p>Adresse IP : http://172.19.120.10</p>
+            <p>Toutes les valeurs sont à 0 en attente de connexion</p>
+            <p>Dernière mise à jour : <span id="lastUpdate"></span></p>
         </div>
     </div>
+
+    <script>
+        // URL de base de l'Augier-Box
+        const baseURL = "http://172.19.120.10";
+        
+        // Fonction de mise à jour des données
+        function updateData() {
+            // Mise à jour de l'horloge et de la date
+            const now = new Date();
+            const jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+            
+            document.getElementById('date').innerText = now.getDate() + '/' + (now.getMonth()+1) + '/' + now.getFullYear();
+            document.getElementById('horloge').innerText = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+            document.getElementById('jour_semaine').innerText = jours[now.getDay()];
+            
+            // Mise à jour du timestamp
+            document.getElementById('lastUpdate').innerText = now.toLocaleTimeString('fr-FR');
+        }
+        
+        // Fonction de rafraîchissement manuel
+        function refreshData() {
+            updateData();
+        }
+        
+        // Mise à jour automatique toutes les 5 secondes
+        setInterval(updateData, 5000);
+        
+        // Premier chargement
+        updateData();
+        
+        // ID fixe
+        document.getElementById('idaugierbox').innerText = '32361001';
+    </script>
 </body>
 </html>
