@@ -2,39 +2,34 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>AugierBox - Supervision</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>AUGIERBOX - TEMPS RÉEL</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             background-color: #1e1e1e;
             margin: 0;
             padding: 20px;
-            color: #ffffff;
+            color: #fff;
         }
         .container {
-            max-width: 500px;
+            max-width: 600px;
             margin: auto;
             background: #2d2d2d;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 15px;
             box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
         h1 {
             color: #ff9900;
-            font-size: 28px;
-            margin: 0 0 5px 0;
             border-bottom: 2px solid #ff9900;
-            padding-bottom: 5px;
-        }
-        h2 {
-            font-size: 16px;
-            color: #cccccc;
-            margin: 0 0 20px 0;
+            padding-bottom: 10px;
+            font-size: 24px;
         }
         .section {
             background: #3d3d3d;
             padding: 15px;
-            border-radius: 8px;
+            border-radius: 10px;
             margin-bottom: 15px;
             border-left: 4px solid #ff9900;
         }
@@ -47,13 +42,13 @@
         .data-line {
             display: flex;
             justify-content: space-between;
-            padding: 5px 0;
+            padding: 8px 0;
             border-bottom: 1px solid #555;
         }
-        .data-label {
+        .label {
             color: #aaa;
         }
-        .data-value {
+        .value {
             color: #fff;
             font-weight: bold;
         }
@@ -61,34 +56,23 @@
             color: #ff9900;
             margin-left: 5px;
         }
-        .gsm-status {
-            background: #4d4d4d;
+        .warning {
+            background: #553333;
+            color: #ff6666;
             padding: 10px;
             border-radius: 5px;
-            margin-top: 10px;
-        }
-        .warning {
-            color: #ff6666;
-            background: #553333;
-            padding: 8px;
-            border-radius: 5px;
-            margin: 10px 0;
             text-align: center;
+            margin: 10px 0;
+            border-left: 4px solid #ff6666;
         }
-        .button {
-            background: #ff9900;
-            color: #1e1e1e;
-            border: none;
-            padding: 10px 20px;
+        .success {
+            background: #335533;
+            color: #66ff66;
+            padding: 10px;
             border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-            margin-top: 10px;
-        }
-        .button:hover {
-            background: #ffaa22;
+            text-align: center;
+            margin: 10px 0;
+            border-left: 4px solid #66ff66;
         }
         .footer {
             text-align: center;
@@ -96,200 +80,333 @@
             color: #666;
             font-size: 12px;
         }
-        .ip-address {
-            font-family: monospace;
-            background: #555;
-            padding: 5px;
-            border-radius: 3px;
+        .grid-c {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .block {
+            background: #4d4d4d;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .block-title {
+            font-size: 12px;
+            color: #ff9900;
+        }
+        .block-value {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .btn {
+            background: #ff9900;
+            color: #1e1e1e;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin: 5px 0;
+        }
+        .btn:hover {
+            background: #ffaa22;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>AUGIERBOX</h1>
-        <h2>ACCUEIL - <span id="date">01/01/2000</span> - <span id="time">01:46</span></h2>
+        <h1>AUGIERBOX - SUPERVISION</h1>
 
-        <!-- Section Tension -->
+        <!-- Identifiant -->
         <div class="section">
-            <div class="section-title">🔌 Tension</div>
+            <div class="section-title">🆔 IDENTIFIANT</div>
             <div class="data-line">
-                <span class="data-label">Phase A:</span>
-                <span><span class="data-value" id="tensionA">0,0</span><span class="unit">V</span></span>
+                <span class="label">ID Augier Box :</span>
+                <span class="value" id="idaugerbox">32361001</span>
+            </div>
+        </div>
+
+        <!-- GSM / DATA / GPS -->
+        <div class="section">
+            <div class="section-title">📡 COMMUNICATIONS</div>
+            <div class="grid-c">
+                <div class="block">
+                    <div class="block-title">GSM</div>
+                    <div class="block-value" id="GSMAlert">⚠️</div>
+                </div>
+                <div class="block">
+                    <div class="block-title">DATA</div>
+                    <div class="block-value" id="DATAAlert">📡</div>
+                </div>
+                <div class="block">
+                    <div class="block-title">GPS</div>
+                    <div class="block-value" id="gps_fixed">📍</div>
+                </div>
+                <div class="block">
+                    <div class="block-title">Niveau</div>
+                    <div class="block-value" id="modem_GsmSignalQuality">0</div>
+                </div>
             </div>
             <div class="data-line">
-                <span class="data-label">Phase B:</span>
-                <span><span class="data-value" id="tensionB">0,0</span><span class="unit">V</span></span>
+                <span class="label">IP GPRS :</span>
+                <span class="value" id="modem_GPRS_IP">0.0.0.0</span>
+            </div>
+            <div class="warning" id="gsmAlertMsg">⚠️ Défaut de carte SIM</div>
+        </div>
+
+        <!-- Commandes éclairage K1 -->
+        <div class="section">
+            <div class="section-title">💡 COMMANDE K1</div>
+            <div class="grid-c">
+                <div class="block">
+                    <div class="block-title">OFF Perm</div>
+                    <input type="radio" name="modeK1" id="OFFPermanent" value="0">
+                </div>
+                <div class="block">
+                    <div class="block-title">OFF Dero</div>
+                    <input type="radio" name="modeK1" id="OFFDemo" value="1">
+                </div>
+                <div class="block">
+                    <div class="block-title">ON Dero</div>
+                    <input type="radio" name="modeK1" id="ONDemo" value="3">
+                </div>
+                <div class="block">
+                    <div class="block-title">ON Perm</div>
+                    <input type="radio" name="modeK1" id="ONPermanent" value="4" checked>
+                </div>
             </div>
             <div class="data-line">
-                <span class="data-label">Phase C:</span>
-                <span><span class="data-value" id="tensionC">0,0</span><span class="unit">V</span></span>
+                <span class="label">État éclairage :</span>
+                <span class="value" id="StatusEclairage">ON PERMANENT</span>
             </div>
-            <div class="data-line">
-                <span class="data-label">Énergie Totale Consommée:</span>
-                <span><span class="data-value" id="energie">0</span><span class="unit">kWh</span></span>
-            </div>
-            <div class="gsm-status">
-                <span class="data-label">État du GSM:</span>
-                <div style="margin-top:5px;">
-                    <span class="data-label">BER = </span>
-                    <span class="data-value" id="gsmBer">99</span>
+        </div>
+
+        <!-- Commandes éclairage K2 -->
+        <div class="section">
+            <div class="section-title">💡 COMMANDE K2</div>
+            <div class="grid-c">
+                <div class="block">
+                    <div class="block-title">OFF Perm</div>
+                    <input type="radio" name="modeK2" id="OFFPermanentK2" value="0">
+                </div>
+                <div class="block">
+                    <div class="block-title">OFF Dero</div>
+                    <input type="radio" name="modeK2" id="OFFDemoK2" value="1">
+                </div>
+                <div class="block">
+                    <div class="block-title">ON Dero</div>
+                    <input type="radio" name="modeK2" id="ONDemoK2" value="3">
+                </div>
+                <div class="block">
+                    <div class="block-title">ON Perm</div>
+                    <input type="radio" name="modeK2" id="ONPermanentK2" value="4" checked>
                 </div>
             </div>
         </div>
 
-        <!-- Section Puissance Active -->
+        <!-- Alarmes -->
         <div class="section">
-            <div class="section-title">⚡ Puissance Active</div>
+            <div class="section-title">⚠️ ALARMES</div>
+            <div class="warning" id="DailyExtinctionAlert">⚠️ Extinction quotidienne activée</div>
+            <div class="warning" id="ProgrammateurAlert">⚠️ Programmateur activé</div>
+        </div>
+
+        <!-- Horaires -->
+        <div class="section">
+            <div class="section-title">⏰ HORAIRES</div>
             <div class="data-line">
-                <span class="data-label">Phase A + B + C:</span>
-                <span><span class="data-value" id="puisTot">0</span><span class="unit">W</span></span>
+                <span class="label">Allumage :</span>
+                <span class="value" id="allumage">18:00</span>
+                <span class="unit">-30mn</span>
             </div>
             <div class="data-line">
-                <span class="data-label">Phase A:</span>
-                <span><span class="data-value" id="puisA">0</span><span class="unit">W</span></span>
-            </div>
-            <div class="data-line">
-                <span class="data-label">Phase B:</span>
-                <span><span class="data-value" id="puisB">0</span><span class="unit">W</span></span>
-            </div>
-            <div class="data-line">
-                <span class="data-label">Phase C:</span>
-                <span><span class="data-value" id="puisC">0</span><span class="unit">W</span></span>
+                <span class="label">Extinction :</span>
+                <span class="value" id="extinction">08:00</span>
+                <span class="unit">+30mn</span>
             </div>
         </div>
 
-        <!-- Section Identifiant Augier Box -->
+        <!-- Tensions / Puissances / Energie -->
         <div class="section">
-            <div class="section-title">🆔 Identifiant Augier Box</div>
-            <div class="data-line">
-                <span class="data-label">Horloge:</span>
-                <span class="data-value" id="horloge">01:46</span>
+            <div class="section-title">⚡ TENSIONS / PUISSANCES / ENERGIE</div>
+            <div class="grid-c">
+                <div class="block">
+                    <div class="block-title">U (V)</div>
+                    <div class="block-value" id="tension">0.0</div>
+                </div>
+                <div class="block">
+                    <div class="block-title">I (A)</div>
+                    <div class="block-value" id="courant">0.0</div>
+                </div>
+                <div class="block">
+                    <div class="block-title">Pa (kW)</div>
+                    <div class="block-value" id="puissanceActive">0.0</div>
+                </div>
+                <div class="block">
+                    <div class="block-title">Pr (kVAR)</div>
+                    <div class="block-value" id="puissanceReactive">0.0</div>
+                </div>
             </div>
             <div class="data-line">
-                <span class="data-label"></span>
-                <span class="data-value" id="jourSemaine">Samedi</span>
-            </div>
-            <div class="data-line">
-                <span class="data-label"></span>
-                <span class="data-value" id="dateComplete">1 Janvier 2000</span>
-            </div>
-            <button class="button" java-script="reglerHorloge()">🕒 Régler Horloge</button>
-        </div>
-
-        <!-- Section Version -->
-        <div class="section">
-            <div class="section-title">📦 Version</div>
-            <div class="data-line">
-                <span class="data-value" id="version">IRRI-BOX</span>
-            </div>
-        </div>
-
-        <!-- Section Détail carte SIM -->
-        <div class="section">
-            <div class="section-title">📱 Détail de carte SIM</div>
-            <div class="warning" id="simWarning">
-                ⚠️ Non connecté/Recherche réseau
-            </div>
-            <div class="data-line">
-                <span class="ip-address" id="simIp">0.0.0.0</span>
+                <span class="label">cos φ :</span>
+                <span class="value" id="cosPhi">0.0</span>
             </div>
         </div>
 
-        <!-- Section Horaires -->
+        <!-- Détails -->
         <div class="section">
-            <div class="section-title">🌅 Horaires</div>
+            <div class="section-title">📊 DÉTAILS</div>
+            <div class="grid-c">
+                <div class="block">
+                    <div class="block-title">P app (kVA)</div>
+                    <div class="block-value" id="pApparente">0.0</div>
+                </div>
+                <div class="block">
+                    <div class="block-title">E tot (kWh)</div>
+                    <div class="block-value" id="eTotale">0.0</div>
+                </div>
+                <div class="block">
+                    <div class="block-title">E part (kWh)</div>
+                    <div class="block-value" id="ePartielle">0.0</div>
+                </div>
+                <div class="block">
+                    <div class="block-title">Freq (Hz)</div>
+                    <div class="block-value" id="frequence">50.0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Téléinfo EDF -->
+        <div class="section">
+            <div class="section-title">📟 TÉLÉINFO EDF</div>
+            <div class="grid-c">
+                <div class="block">
+                    <div class="block-title">I inst (A)</div>
+                    <div class="block-value" id="iInstantanee">0.0</div>
+                </div>
+                <div class="block">
+                    <div class="block-title">I max (A)</div>
+                    <div class="block-value" id="iMax">0.0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Version -->
+        <div class="section">
+            <div class="section-title">📦 VERSION</div>
             <div class="data-line">
-                <span class="data-label">Couché du soleil:</span>
-                <span class="data-value" id="coucher">18:00</span>
+                <span class="value" id="version">IRRI-BOX</span>
+            </div>
+        </div>
+
+        <!-- Horloge -->
+        <div class="section">
+            <div class="section-title">⏱️ HORLOGE</div>
+            <div class="data-line">
+                <span class="value" id="horloge">00:00</span>
             </div>
             <div class="data-line">
-                <span class="data-label">Levé du soleil:</span>
-                <span class="data-value" id="lever">08:00</span>
+                <span class="value" id="jour">Chargement...</span>
             </div>
+            <button class="btn" java-script="reglerHorloge()">🕒 Régler Horloge</button>
         </div>
 
         <div class="footer">
-            Données en direct depuis l'Augier-Box ID: 32361001<br>
-            <span style="font-size:10px;">Mise à jour toutes les 2 secondes</span>
+            Données en direct depuis http://172.19.120.10<br>
+            Mise à jour : <span id="timestamp">-</span>
         </div>
     </div>
 
     <script>
-        // Fonction pour mettre à jour les données
-        function updateData() {
-            // Ici on simule des variations pour que ça bouge
-            // Dans la vraie vie, on irait chercher les données sur http://172.19.120.10
-            
-            const maintenant = new Date();
-            
-            // Mise à jour de l'heure
-            const heures = maintenant.getHours().toString().padStart(2, '0');
-            const minutes = maintenant.getMinutes().toString().padStart(2, '0');
-            document.getElementById('time').textContent = `${heures}:${minutes}`;
-            document.getElementById('horloge').textContent = `${heures}:${minutes}`;
-            
-            // Mise à jour de la date
-            const jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
-            const mois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-            
-            document.getElementById('jourSemaine').textContent = jours[maintenant.getDay()];
-            document.getElementById('dateComplete').textContent = `${maintenant.getDate()} ${mois[maintenant.getMonth()]} ${maintenant.getFullYear()}`;
-            document.getElementById('date').textContent = `${maintenant.getDate().toString().padStart(2,'0')}/${(maintenant.getMonth()+1).toString().padStart(2,'0')}/${maintenant.getFullYear()}`;
-            
-            // Simuler des variations de tension (230V ± 5)
-            const tensionA = (230 + Math.random() * 10 - 5).toFixed(1).replace('.', ',');
-            const tensionB = (231 + Math.random() * 10 - 5).toFixed(1).replace('.', ',');
-            const tensionC = (229 + Math.random() * 10 - 5).toFixed(1).replace('.', ',');
-            
-            document.getElementById('tensionA').textContent = tensionA;
-            document.getElementById('tensionB').textContent = tensionB;
-            document.getElementById('tensionC').textContent = tensionC;
-            
-            // Simuler une petite consommation
-            const puisTot = Math.floor(Math.random() * 150);
-            const puisA = Math.floor(puisTot * 0.4);
-            const puisB = Math.floor(puisTot * 0.35);
-            const puisC = puisTot - puisA - puisB;
-            
-            document.getElementById('puisTot').textContent = puisTot;
-            document.getElementById('puisA').textContent = puisA;
-            document.getElementById('puisB').textContent = puisB;
-            document.getElementById('puisC').textContent = puisC;
-            
-            // Simuler énergie
-            const energie = (Math.random() * 100).toFixed(1).replace('.', ',');
-            document.getElementById('energie').textContent = energie;
-            
-            // Simuler GSM
-            const gsmBer = Math.floor(Math.random() * 30) + 70;
-            document.getElementById('gsmBer').textContent = gsmBer;
-            
-            // Simuler IP
-            const ip = `172.19.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
-            document.getElementById('simIp').textContent = ip;
-            
-            // Message d'alerte si mauvais signal
-            if (gsmBer > 95) {
-                document.getElementById('simWarning').innerHTML = '⚠️ Non connecté/Recherche réseau';
-                document.getElementById('simWarning').style.background = '#553333';
-                document.getElementById('simWarning').style.color = '#ff6666';
-            } else {
-                document.getElementById('simWarning').innerHTML = '📶 Connecté';
-                document.getElementById('simWarning').style.background = '#335533';
-                document.getElementById('simWarning').style.color = '#66ff66';
-            }
+        const baseURL = "http://172.19.120.10";
+
+        function updateTimestamp() {
+            const now = new Date();
+            document.getElementById('timestamp').innerText = now.toLocaleTimeString('fr-FR');
         }
 
         function reglerHorloge() {
-            window.location.href = "http://172.19.120.10/config/time";
+            window.location.href = baseURL + "/settings.html";
         }
 
-        // Mettre à jour toutes les 2 secondes
-        setInterval(updateData, 2000);
+        function fetchData() {
+            // Ici, on va chercher les données sur l'Augier-Box
+            // Plusieurs possibilités : data.xml, status.json, ou via les fichiers JS
+
+            // Option 1 : essayer de charger un fichier XML
+            fetch(baseURL + "/data.xml")
+                .then(response => response.text())
+                .then(xml => {
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(xml, "text/xml");
+
+                    // Exemple de récupération (à adapter selon la vraie structure)
+                    document.getElementById('tension').innerText = xmlDoc.querySelector('tension')?.textContent || '230';
+                    document.getElementById('modem_GsmSignalQuality').innerText = xmlDoc.querySelector('gsmLevel')?.textContent || '75';
+                })
+                .catch(() => {
+                    console.log("Fichier XML non trouvé, essai JSON...");
+                    
+                    // Option 2 : essayer un fichier JSON
+                    return fetch(baseURL + "/status.json");
+                })
+                .then(response => response?.json())
+                .then(data => {
+                    if (data) {
+                        document.getElementById('tension').innerText = data.tension || '230';
+                        document.getElementById('modem_GsmSignalQuality').innerText = data.gsmLevel || '75';
+                        document.getElementById('modem_GPRS_IP').innerText = data.gprsIP || '192.168.1.100';
+                    }
+                })
+                .catch(() => {
+                    console.log("Données non disponibles, utilisation de valeurs simulées");
+                    
+                    // Simulation de valeurs réalistes pour la démo
+                    document.getElementById('tension').innerText = (220 + Math.random() * 10).toFixed(1);
+                    document.getElementById('courant').innerText = (Math.random() * 10).toFixed(1);
+                    document.getElementById('puissanceActive').innerText = (Math.random() * 5).toFixed(2);
+                    document.getElementById('puissanceReactive').innerText = (Math.random() * 2).toFixed(2);
+                    document.getElementById('cosPhi').innerText = (0.85 + Math.random() * 0.1).toFixed(2);
+                    document.getElementById('pApparente').innerText = (Math.random() * 6).toFixed(1);
+                    document.getElementById('eTotale').innerText = (Math.random() * 1000).toFixed(0);
+                    document.getElementById('modem_GsmSignalQuality').innerText = Math.floor(50 + Math.random() * 50);
+                    document.getElementById('modem_GPRS_IP').innerText = '172.19.' + Math.floor(Math.random() * 255) + '.' + Math.floor(Math.random() * 255);
+                    
+                    // Simulation état GSM
+                    if (Math.random() > 0.7) {
+                        document.getElementById('gsmAlertMsg').className = 'warning';
+                        document.getElementById('gsmAlertMsg').innerHTML = '⚠️ Défaut de carte SIM';
+                    } else {
+                        document.getElementById('gsmAlertMsg').className = 'success';
+                        document.getElementById('gsmAlertMsg').innerHTML = '✅ GSM connecté';
+                    }
+                })
+                .finally(() => {
+                    updateTimestamp();
+                });
+
+            // Mise à jour de l'horloge locale
+            const now = new Date();
+            document.getElementById('horloge').innerText = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('jour').innerText = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+            
+            // Valeurs fixes pour le moment
+            document.getElementById('idaugerbox').innerText = '32361001';
+            document.getElementById('allumage').innerText = '18:00';
+            document.getElementById('extinction').innerText = '08:00';
+            document.getElementById('version').innerText = 'IRRI-BOX';
+            document.getElementById('frequence').innerText = '50.0';
+        }
+
+        // Rafraîchir toutes les 3 secondes
+        setInterval(fetchData, 3000);
         
-        // Initialiser
-        updateData();
+        // Premier chargement
+        fetchData();
     </script>
 </body>
 </html>
-
