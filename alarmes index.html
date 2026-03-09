@@ -1,45 +1,77 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>AUGIERBOX - TEMPS RÉEL</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #1e1e1e;
-            margin: 0;
-            padding: 20px;
-            color: #fff;
+
+        .header-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #3d3d3d;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
         }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: #2d2d2d;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-        }
-        h1 {
-            color: #ff9900;
-            border-bottom: 2px solid #ff9900;
-            padding-bottom: 10px;
-            font-size: 24px;
+        .id-box {
+            background: #ff9900;
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
         }
         .section {
             background: #3d3d3d;
             padding: 15px;
             border-radius: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             border-left: 4px solid #ff9900;
         }
         .section-title {
             color: #ff9900;
             font-weight: bold;
             font-size: 18px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .data-line {
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .card {
+            background: #4d4d4d;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .card-label {
+            font-size: 12px;
+            color: #ff9900;
+            margin-bottom: 5px;
+        }
+        .card-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .card-unit {
+            font-size: 12px;
+            color: #aaa;
+            margin-left: 3px;
+        }
+        .data-row {
             display: flex;
             justify-content: space-between;
             padding: 8px 0;
@@ -52,17 +84,13 @@
             color: #fff;
             font-weight: bold;
         }
-        .unit {
-            color: #ff9900;
-            margin-left: 5px;
-        }
         .warning {
             background: #553333;
             color: #ff6666;
             padding: 10px;
             border-radius: 5px;
+            margin: 5px 0;
             text-align: center;
-            margin: 10px 0;
             border-left: 4px solid #ff6666;
         }
         .success {
@@ -70,9 +98,47 @@
             color: #66ff66;
             padding: 10px;
             border-radius: 5px;
+            margin: 5px 0;
             text-align: center;
-            margin: 10px 0;
             border-left: 4px solid #66ff66;
+        }
+        .info-badge {
+            background: #4d4d4d;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            display: inline-block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        td {
+            padding: 8px;
+            border-bottom: 1px solid #555;
+        }
+        td:first-child {
+            color: #aaa;
+        }
+        td:last-child {
+            text-align: center;
+            font-weight: bold;
+        }
+        .btn {
+            background: #ff9900;
+            color: #000;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        .btn:hover {
+            background: #ffaa22;
         }
         .footer {
             text-align: center;
@@ -80,328 +146,318 @@
             color: #666;
             font-size: 12px;
         }
-        .grid-c {
+        .phase-header {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 10px;
-            margin: 10px 0;
-        }
-        .block {
-            background: #4d4d4d;
-            padding: 10px;
-            border-radius: 5px;
             text-align: center;
-        }
-        .block-title {
-            font-size: 12px;
+            margin-bottom: 5px;
             color: #ff9900;
-        }
-        .block-value {
-            font-size: 16px;
             font-weight: bold;
-        }
-        .btn {
-            background: #ff9900;
-            color: #1e1e1e;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-            margin: 5px 0;
-        }
-        .btn:hover {
-            background: #ffaa22;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>AUGIERBOX - SUPERVISION</h1>
-
-        <!-- Identifiant -->
-        <div class="section">
-            <div class="section-title">🆔 IDENTIFIANT</div>
-            <div class="data-line">
-                <span class="label">ID Augier Box :</span>
-                <span class="value" id="idaugerbox">32361001</span>
-            </div>
+        <h1>AUGIERBOX - SUPERVISION EN DIRECT</h1>
+        
+        <!-- En-tête avec ID et date -->
+        <div class="header-info">
+            <div><span id="Accueil">ACCUEIL</span></div>
+            <div><span id="date"></span> - <span id="horloge"></span></div>
+            <div class="id-box">ID: <span id="idaugierbox"></span></div>
         </div>
 
         <!-- GSM / DATA / GPS -->
         <div class="section">
             <div class="section-title">📡 COMMUNICATIONS</div>
-            <div class="grid-c">
-                <div class="block">
-                    <div class="block-title">GSM</div>
-                    <div class="block-value" id="GSMAlert">⚠️</div>
+            <div class="grid-4">
+                <div class="card">
+                    <div class="card-label">GSM</div>
+                    <div class="card-value" id="GSMAlert">-</div>
                 </div>
-                <div class="block">
-                    <div class="block-title">DATA</div>
-                    <div class="block-value" id="DATAAlert">📡</div>
+                <div class="card">
+                    <div class="card-label">DATA</div>
+                    <div class="card-value" id="DATAAlert">-</div>
                 </div>
-                <div class="block">
-                    <div class="block-title">GPS</div>
-                    <div class="block-value" id="gps_fixed">📍</div>
+                <div class="card">
+                    <div class="card-label">GPS</div>
+                    <div class="card-value" id="gps_fixed">-</div>
                 </div>
-                <div class="block">
-                    <div class="block-title">Niveau</div>
-                    <div class="block-value" id="modem_GsmSignalQuality">0</div>
+                <div class="card">
+                    <div class="card-label">Niveau</div>
+                    <div class="card-value" id="modem_GsmSignalQuality">-</div>
                 </div>
             </div>
-            <div class="data-line">
+            <div class="data-row">
                 <span class="label">IP GPRS :</span>
                 <span class="value" id="modem_GPRS_IP">0.0.0.0</span>
             </div>
-            <div class="warning" id="gsmAlertMsg">⚠️ Défaut de carte SIM</div>
+            <div class="warning" id="alarme">Alarmes présentes</div>
         </div>
 
-        <!-- Commandes éclairage K1 -->
+        <!-- Commande K1 -->
         <div class="section">
-            <div class="section-title">💡 COMMANDE K1</div>
-            <div class="grid-c">
-                <div class="block">
-                    <div class="block-title">OFF Perm</div>
-                    <input type="radio" name="modeK1" id="OFFPermanent" value="0">
+            <div class="section-title">💡 <span id="K1Cmd">Commande K1</span></div>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-label">OFF PERMANENT</div>
+                    <input type="radio" name="mode" id="mode-a" value="0">
                 </div>
-                <div class="block">
-                    <div class="block-title">OFF Dero</div>
-                    <input type="radio" name="modeK1" id="OFFDemo" value="1">
+                <div class="card">
+                    <div class="card-label">OFF DEROGATION</div>
+                    <input type="radio" name="mode" id="mode-b" value="1">
                 </div>
-                <div class="block">
-                    <div class="block-title">ON Dero</div>
-                    <input type="radio" name="modeK1" id="ONDemo" value="3">
+                <div class="card">
+                    <div class="card-label">AUTO</div>
+                    <input type="radio" name="mode" id="mode-c" value="2">
                 </div>
-                <div class="block">
-                    <div class="block-title">ON Perm</div>
-                    <input type="radio" name="modeK1" id="ONPermanent" value="4" checked>
+                <div class="card">
+                    <div class="card-label">ON DEROGATION</div>
+                    <input type="radio" name="mode" id="mode-d" value="3">
+                </div>
+                <div class="card">
+                    <div class="card-label">ON PERMANENT</div>
+                    <input type="radio" name="mode" id="mode-e" value="4" checked>
                 </div>
             </div>
-            <div class="data-line">
-                <span class="label">État éclairage :</span>
-                <span class="value" id="StatusEclairage">ON PERMANENT</span>
-            </div>
+            <div class="success" id="StatusEclairage">État éclairage</div>
         </div>
 
-        <!-- Commandes éclairage K2 -->
+        <!-- Commande K2 -->
         <div class="section">
-            <div class="section-title">💡 COMMANDE K2</div>
-            <div class="grid-c">
-                <div class="block">
-                    <div class="block-title">OFF Perm</div>
-                    <input type="radio" name="modeK2" id="OFFPermanentK2" value="0">
+            <div class="section-title">💡 <span id="K2Cmd">Commande K2</span></div>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-label">OFF</div>
+                    <input type="radio" name="CmdK2" id="CmdK2_a" value="0">
                 </div>
-                <div class="block">
-                    <div class="block-title">OFF Dero</div>
-                    <input type="radio" name="modeK2" id="OFFDemoK2" value="1">
+                <div class="card">
+                    <div class="card-label">ON</div>
+                    <input type="radio" name="CmdK2" id="CmdK2_b" value="1">
                 </div>
-                <div class="block">
-                    <div class="block-title">ON Dero</div>
-                    <input type="radio" name="modeK2" id="ONDemoK2" value="3">
-                </div>
-                <div class="block">
-                    <div class="block-title">ON Perm</div>
-                    <input type="radio" name="modeK2" id="ONPermanentK2" value="4" checked>
+                <div class="card">
+                    <div class="card-label">AUTO</div>
+                    <input type="radio" name="CmdK2" id="CmdK2_c" value="2">
                 </div>
             </div>
-        </div>
-
-        <!-- Alarmes -->
-        <div class="section">
-            <div class="section-title">⚠️ ALARMES</div>
-            <div class="warning" id="DailyExtinctionAlert">⚠️ Extinction quotidienne activée</div>
-            <div class="warning" id="ProgrammateurAlert">⚠️ Programmateur activé</div>
+            <div class="success" id="StatusEclairageK2">État éclairage K2</div>
         </div>
 
         <!-- Horaires -->
         <div class="section">
-            <div class="section-title">⏰ HORAIRES</div>
-            <div class="data-line">
-                <span class="label">Allumage :</span>
-                <span class="value" id="allumage">18:00</span>
-                <span class="unit">-30mn</span>
+            <div class="section-title">⏰ <span id="Horaires">Horaires</span></div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-label">Allumage</div>
+                    <div class="card-value" id="clkON">18:00</div>
+                    <div class="card-unit" id="ShiftON">0</div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Extinction</div>
+                    <div class="card-value" id="clkOFF">08:00</div>
+                    <div class="card-unit" id="ShiftOFF">0</div>
+                </div>
             </div>
-            <div class="data-line">
-                <span class="label">Extinction :</span>
-                <span class="value" id="extinction">08:00</span>
-                <span class="unit">+30mn</span>
-            </div>
+            <div class="warning" id="DailyExtinctionAlert" style="display: none;">Extinction quotidienne activée</div>
+            <div class="warning" id="ProgrammateurAlert" style="display: none;">Programmateur activé</div>
         </div>
 
         <!-- Tensions / Puissances / Energie -->
         <div class="section">
-            <div class="section-title">⚡ TENSIONS / PUISSANCES / ENERGIE</div>
-            <div class="grid-c">
-                <div class="block">
-                    <div class="block-title">U (V)</div>
-                    <div class="block-value" id="tension">0.0</div>
-                </div>
-                <div class="block">
-                    <div class="block-title">I (A)</div>
-                    <div class="block-value" id="courant">0.0</div>
-                </div>
-                <div class="block">
-                    <div class="block-title">Pa (kW)</div>
-                    <div class="block-value" id="puissanceActive">0.0</div>
-                </div>
-                <div class="block">
-                    <div class="block-title">Pr (kVAR)</div>
-                    <div class="block-value" id="puissanceReactive">0.0</div>
-                </div>
+            <div class="section-title">⚡ <span id="U_P_E">Tensions / Puissances / Energie</span></div>
+            
+            <div class="phase-header">
+                <div></div>
+                <div>A</div>
+                <div>B</div>
+                <div>C</div>
             </div>
-            <div class="data-line">
-                <span class="label">cos φ :</span>
-                <span class="value" id="cosPhi">0.0</span>
+            
+            <div class="grid-4">
+                <div class="card-label">U (V)</div>
+                <div class="card-value" id="Ua">-</div>
+                <div class="card-value" id="Ub">-</div>
+                <div class="card-value" id="Uc">-</div>
+            </div>
+            
+            <div class="grid-4">
+                <div class="card-label">I (A)</div>
+                <div class="card-value" id="Ia">-</div>
+                <div class="card-value" id="Ib">-</div>
+                <div class="card-value" id="Ic">-</div>
+            </div>
+            
+            <div class="grid-4">
+                <div class="card-label">Pa (kW)</div>
+                <div class="card-value" id="Paa">-</div>
+                <div class="card-value" id="Pab">-</div>
+                <div class="card-value" id="Pac">-</div>
+            </div>
+            
+            <div class="grid-4">
+                <div class="card-label">Pr (kVAR)</div>
+                <div class="card-value" id="Pra">-</div>
+                <div class="card-value" id="Prb">-</div>
+                <div class="card-value" id="Prc">-</div>
+            </div>
+            
+            <div class="data-row">
+                <span class="label">cos φ</span>
+                <span class="value" id="cosP">-</span>
             </div>
         </div>
 
         <!-- Détails -->
         <div class="section">
-            <div class="section-title">📊 DÉTAILS</div>
-            <div class="grid-c">
-                <div class="block">
-                    <div class="block-title">P app (kVA)</div>
-                    <div class="block-value" id="pApparente">0.0</div>
+            <div class="section-title">📊 <span id="Details">Détails</span></div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-label">P apparente (kVA)</div>
+                    <div class="card-value" id="counter_apparent_power">-</div>
                 </div>
-                <div class="block">
-                    <div class="block-title">E tot (kWh)</div>
-                    <div class="block-value" id="eTotale">0.0</div>
+                <div class="card">
+                    <div class="card-label">E totale (kWh)</div>
+                    <div class="card-value" id="Etotale">-</div>
                 </div>
-                <div class="block">
-                    <div class="block-title">E part (kWh)</div>
-                    <div class="block-value" id="ePartielle">0.0</div>
+                <div class="card">
+                    <div class="card-label">E partielle (kWh)</div>
+                    <div class="card-value" id="Epartielle">-</div>
                 </div>
-                <div class="block">
-                    <div class="block-title">Freq (Hz)</div>
-                    <div class="block-value" id="frequence">50.0</div>
+                <div class="card">
+                    <div class="card-label">Fréquence (Hz)</div>
+                    <div class="card-value" id="Freq">-</div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Charge N (Ω)</div>
+                    <div class="card-value" id="set_EstimatedActualLoad">-</div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Charge N-1 (Ω)</div>
+                    <div class="card-value" id="set_EstimatedLastNightLoad">-</div>
                 </div>
             </div>
         </div>
 
         <!-- Téléinfo EDF -->
         <div class="section">
-            <div class="section-title">📟 TÉLÉINFO EDF</div>
-            <div class="grid-c">
-                <div class="block">
-                    <div class="block-title">I inst (A)</div>
-                    <div class="block-value" id="iInstantanee">0.0</div>
+            <div class="section-title">📟 <span id="Teleinfo">Téléinfo EDF</span></div>
+            <div class="phase-header">
+                <div></div>
+                <div>1</div>
+                <div>2</div>
+                <div>3</div>
+            </div>
+            
+            <div class="grid-4">
+                <div class="card-label">I inst (A)</div>
+                <div class="card-value" id="tele_info_edf_iinst1">-</div>
+                <div class="card-value" id="tele_info_edf_iinst2">-</div>
+                <div class="card-value" id="tele_info_edf_iinst3">-</div>
+            </div>
+            
+            <div class="grid-4">
+                <div class="card-label">I max (A)</div>
+                <div class="card-value" id="tele_info_edf_imax1">-</div>
+                <div class="card-value" id="tele_info_edf_imax2">-</div>
+                <div class="card-value" id="tele_info_edf_imax3">-</div>
+            </div>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-label">I souscrite (A)</div>
+                    <div class="card-value" id="tele_info_edf_isousc">-</div>
                 </div>
-                <div class="block">
-                    <div class="block-title">I max (A)</div>
-                    <div class="block-value" id="iMax">0.0</div>
+                <div class="card">
+                    <div class="card-label">Papp (kVA)</div>
+                    <div class="card-value" id="tele_info_edf_papp">-</div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Papp Max (kVA)</div>
+                    <div class="card-value" id="tele_info_edf_pmax">-</div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Base (kWh)</div>
+                    <div class="card-value" id="tele_info_edf_base">-</div>
                 </div>
             </div>
         </div>
 
-        <!-- Version -->
+        <!-- Version et infos système -->
         <div class="section">
-            <div class="section-title">📦 VERSION</div>
-            <div class="data-line">
-                <span class="value" id="version">IRRI-BOX</span>
+            <div class="section-title">ℹ️ Informations</div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-label">Version logiciel</div>
+                    <div class="card-value" id="VLogiciel">-</div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Version Boot</div>
+                    <div class="card-value" id="VBoot">-</div>
+                </div>
+                <div class="card">
+                    <div class="card-label">État chargeur</div>
+                    <div class="card-value" id="ab_state_charger_str">-</div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Version AugierBox</div>
+                    <div class="card-value" id="Options2-4">-</div>
+                </div>
             </div>
         </div>
 
-        <!-- Horloge -->
-        <div class="section">
-            <div class="section-title">⏱️ HORLOGE</div>
-            <div class="data-line">
-                <span class="value" id="horloge">00:00</span>
-            </div>
-            <div class="data-line">
-                <span class="value" id="jour">Chargement...</span>
-            </div>
-            <button class="btn" java-script="reglerHorloge()">🕒 Régler Horloge</button>
-        </div>
+        <!-- Bouton régler horloge -->
+        <button class="btn" java-script="reglerHorloge()">🕒 Régler l'horloge</button>
 
         <div class="footer">
-            Données en direct depuis http://172.19.120.10<br>
-            Mise à jour : <span id="timestamp">-</span>
+            <p>V2.0.1 - AUGIER Energy</p>
+            <p>Données en direct depuis http://172.19.120.10</p>
+            <p>Dernière mise à jour : <span id="timestamp">-</span></p>
         </div>
     </div>
 
     <script>
         const baseURL = "http://172.19.120.10";
-
+        
         function updateTimestamp() {
             const now = new Date();
             document.getElementById('timestamp').innerText = now.toLocaleTimeString('fr-FR');
         }
-
+        
         function reglerHorloge() {
             window.location.href = baseURL + "/settings.html";
         }
-
+        
         function fetchData() {
-            // Ici, on va chercher les données sur l'Augier-Box
-            // Plusieurs possibilités : data.xml, status.json, ou via les fichiers JS
-
-            // Option 1 : essayer de charger un fichier XML
-            fetch(baseURL + "/data.xml")
-                .then(response => response.text())
-                .then(xml => {
-                    const parser = new DOMParser();
-                    const xmlDoc = parser.parseFromString(xml, "text/xml");
-
-                    // Exemple de récupération (à adapter selon la vraie structure)
-                    document.getElementById('tension').innerText = xmlDoc.querySelector('tension')?.textContent || '230';
-                    document.getElementById('modem_GsmSignalQuality').innerText = xmlDoc.querySelector('gsmLevel')?.textContent || '75';
-                })
-                .catch(() => {
-                    console.log("Fichier XML non trouvé, essai JSON...");
-                    
-                    // Option 2 : essayer un fichier JSON
-                    return fetch(baseURL + "/status.json");
-                })
-                .then(response => response?.json())
-                .then(data => {
-                    if (data) {
-                        document.getElementById('tension').innerText = data.tension || '230';
-                        document.getElementById('modem_GsmSignalQuality').innerText = data.gsmLevel || '75';
-                        document.getElementById('modem_GPRS_IP').innerText = data.gprsIP || '192.168.1.100';
-                    }
-                })
-                .catch(() => {
-                    console.log("Données non disponibles, utilisation de valeurs simulées");
-                    
-                    // Simulation de valeurs réalistes pour la démo
-                    document.getElementById('tension').innerText = (220 + Math.random() * 10).toFixed(1);
-                    document.getElementById('courant').innerText = (Math.random() * 10).toFixed(1);
-                    document.getElementById('puissanceActive').innerText = (Math.random() * 5).toFixed(2);
-                    document.getElementById('puissanceReactive').innerText = (Math.random() * 2).toFixed(2);
-                    document.getElementById('cosPhi').innerText = (0.85 + Math.random() * 0.1).toFixed(2);
-                    document.getElementById('pApparente').innerText = (Math.random() * 6).toFixed(1);
-                    document.getElementById('eTotale').innerText = (Math.random() * 1000).toFixed(0);
-                    document.getElementById('modem_GsmSignalQuality').innerText = Math.floor(50 + Math.random() * 50);
-                    document.getElementById('modem_GPRS_IP').innerText = '172.19.' + Math.floor(Math.random() * 255) + '.' + Math.floor(Math.random() * 255);
-                    
-                    // Simulation état GSM
-                    if (Math.random() > 0.7) {
-                        document.getElementById('gsmAlertMsg').className = 'warning';
-                        document.getElementById('gsmAlertMsg').innerHTML = '⚠️ Défaut de carte SIM';
-                    } else {
-                        document.getElementById('gsmAlertMsg').className = 'success';
-                        document.getElementById('gsmAlertMsg').innerHTML = '✅ GSM connecté';
-                    }
-                })
-                .finally(() => {
-                    updateTimestamp();
-                });
-
             // Mise à jour de l'horloge locale
             const now = new Date();
-            document.getElementById('horloge').innerText = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-            document.getElementById('jour').innerText = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+            const jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+            const mois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
             
-            // Valeurs fixes pour le moment
-            document.getElementById('idaugerbox').innerText = '32361001';
-            document.getElementById('allumage').innerText = '18:00';
-            document.getElementById('extinction').innerText = '08:00';
-            document.getElementById('version').innerText = 'IRRI-BOX';
-            document.getElementById('frequence').innerText = '50.0';
+            document.getElementById('date').innerText = now.getDate() + '/' + (now.getMonth()+1) + '/' + now.getFullYear();
+            document.getElementById('horloge').innerText = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+            
+            // ID fixe pour le moment
+            document.getElementById('idaugierbox').innerText = '32361001';
+            
+            // Valeurs simulées pour la démo (à remplacer par les vraies données)
+            document.getElementById('Ua').innerText = (225 + Math.random() * 5).toFixed(1);
+            document.getElementById('Ub').innerText = (225 + Math.random() * 5).toFixed(1);
+            document.getElementById('Uc').innerText = (225 + Math.random() * 5).toFixed(1);
+            
+            document.getElementById('Ia').innerText = (Math.random() * 10).toFixed(1);
+            document.getElementById('Ib').innerText = (Math.random() * 10).toFixed(1);
+            document.getElementById('Ic').innerText = (Math.random() * 10).toFixed(1);
+            
+            document.getElementById('Paa').innerText = (Math.random() * 2.5).toFixed(2);
+            document.getElementById('Pab').innerText = (Math.random() * 2.5).toFixed(2);
+            document.getElementById('Pac').innerText = (Math.random() * 2.5).toFixed(2);
+            
+            document.getElementById('modem_GsmSignalQuality').innerText = Math.floor(50 + Math.random() * 50);
+            document.getElementById('modem_GPRS_IP').innerText = '172.19.' + Math.floor(Math.random() * 255) + '.' + Math.floor(Math.random() * 255);
+            
+            updateTimestamp();
         }
-
+        
         // Rafraîchir toutes les 3 secondes
         setInterval(fetchData, 3000);
         
